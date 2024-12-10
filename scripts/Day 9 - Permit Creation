@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <assignments>
+        <name>count</name>
+        <label>count</label>
+        <locationX>264</locationX>
+        <locationY>539</locationY>
+        <assignmentItems>
+            <assignToReference>CountOfTotalPermits</assignToReference>
+            <operator>Add</operator>
+            <value>
+                <numberValue>1.0</numberValue>
+            </value>
+        </assignmentItems>
+        <connector>
+            <targetReference>Loop_to_count_permit</targetReference>
+        </connector>
+    </assignments>
+    <customErrors>
+        <name>error_message</name>
+        <label>error message</label>
+        <locationX>308</locationX>
+        <locationY>839</locationY>
+        <customErrorMessages>
+            <errorMessage>Vendor has an existing permit application in process</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Decision_to_create_Permits</name>
+        <label>Decision to create Permits</label>
+        <locationX>176</locationX>
+        <locationY>731</locationY>
+        <defaultConnector>
+            <targetReference>error_message</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Error Messgae</defaultConnectorLabel>
+        <rules>
+            <name>Create_Permits</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>CountOfTotalPermits</leftValueReference>
+                <operator>LessThanOrEqualTo</operator>
+                <rightValue>
+                    <numberValue>1.0</numberValue>
+                </rightValue>
+            </conditions>
+            <label>Create Permits</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Day 9 - Permit Creation V2 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Day 9 - Permit Creation V2</label>
+    <loops>
+        <name>Loop_to_count_permit</name>
+        <label>Loop to count permit</label>
+        <locationX>176</locationX>
+        <locationY>431</locationY>
+        <collectionReference>Get_other_Permit_records</collectionReference>
+        <iterationOrder>Asc</iterationOrder>
+        <nextValueConnector>
+            <targetReference>count</targetReference>
+        </nextValueConnector>
+        <noMoreValuesConnector>
+            <targetReference>Decision_to_create_Permits</targetReference>
+        </noMoreValuesConnector>
+    </loops>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordLookups>
+        <description>This gets all previous permit records created by same vendor which are in process</description>
+        <name>Get_other_Permit_records</name>
+        <label>Get other Permit records</label>
+        <locationX>176</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Loop_to_count_permit</targetReference>
+        </connector>
+        <filterLogic>1 AND (2 OR 3 OR 4)</filterLogic>
+        <filters>
+            <field>Vendor__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vendor__c</elementReference>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>New</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Under Review</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <getFirstRecordOnly>false</getFirstRecordOnly>
+        <object>Permit__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>50</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_other_Permit_records</targetReference>
+        </connector>
+        <object>Permit__c</object>
+        <recordTriggerType>Create</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+    <variables>
+        <name>CountOfTotalPermits</name>
+        <dataType>Number</dataType>
+        <isCollection>false</isCollection>
+        <isInput>false</isInput>
+        <isOutput>false</isOutput>
+        <scale>0</scale>
+    </variables>
+</Flow>
+/*At the festival grounds, Permit Officer Frost has noticed a critical issue with the vendor application process. To maintain fair access to limited booth space, we need to implement controls around permit applications.
+
+
+Requirements:
+
+Vendors cannot have multiple permit applications in process simultaneously
+"In process" is defined as any permit with status: New, Under Review, or Approved
+Only vendors whose previous permits were all Rejected may submit a new application
+This validation must work for both single and bulk permit submissions
+If one permit fails in a bulk transaction, all the permits should be rolled back
+"Vendor has an existing permit application in process" should be the error message thrown during failures
+
+Example Scenarios:
+
+A vendor with a permit "Under Review" cannot submit new applications
+A vendor whose only permit is "Rejected" can submit a new application
+Multiple permit submissions for the same vendor in one transaction should be blocked
+
+Your task is to implement this validation logic to ensure consistent processing of permit applications.
+*/
