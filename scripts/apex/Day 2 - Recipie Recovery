@@ -21,3 +21,33 @@ public class CampApexSolution {
         }
     }
 }
+
+/* Ah! You came back! We knew we could count on you. Thank you! Today we need your help at the bakery.
+
+
+Master Baker Maple has noticed that the gingerbread walls she's making aren't hardening properly, threatening the structural integrity of the entire festival. You've been called in as an expert confectioner to solve this situation.
+
+
+As you enter the bakery, the scent of cinnamon and nutmeg fills the air. The elves hand you a recipe card, but oh no! It seems a mischievous Gumdrop Goblin has been nibbling on the edges, partially obscuring the critical measurements.
+
+
+Each line of the recipe card contains a measurement, but now only the first and last digit of each measurement are visible. To decipher the correct amount, you need to combine these digits to form a two-digit number.
+
+
+For example:
+
+2vanilla extract7
+cinnamon8stick1
+3cups flour5
+ginger4root9
+
+In this case, the measurements would be 27, 81, 35, and 49. The sum of these measurements is 192.
+
+
+You may encounter empty recipie cards, if so, return 0.
+
+
+Your task is to analyze the entire recipe card. What is the sum of all the measurements when you combine the first and last digit of each line?
+
+
+Good luck, confectioner! The structural integrity of the festival depends on you! */
