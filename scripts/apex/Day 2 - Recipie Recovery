@@ -1,0 +1,23 @@
+public class CampApexSolution {
+    public Integer calculateRecipeSum(List<String> recipeLines) {
+        Integer sum=0;Integer num=0;
+        String regExp ='[a-zA-z ]';
+        String replace='';
+        if( recipeLines.isEmpty())
+        return 0;
+        else
+        { for( String s1: recipeLines)
+            {   String s2;
+                s2= s1.replaceAll(regExp,replace);
+                if( s2.length()> 2)
+                  {  String s3 = s2.left(1)+s2.right(1);
+                    num= Integer.valueOf(s3);
+                  }
+                else
+                num= Integer.valueOf(s2);
+                sum= sum + num;
+            }
+            return sum;
+        }
+    }
+}
