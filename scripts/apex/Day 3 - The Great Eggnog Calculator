@@ -15,7 +15,7 @@ public class CampApexSolution {
     }
 }
 
-Master Baker Maple needs help with the eggnog station. The festival organizers need to know exactly how many servings of eggnog they can make with their current ingredients.
+/*Master Baker Maple needs help with the eggnog station. The festival organizers need to know exactly how many servings of eggnog they can make with their current ingredients.
 
 According to the ancient recipe book, each serving of eggnog requires:
 
@@ -58,4 +58,4 @@ Explanation: We can make 5 complete servings with these ingredients.
 Constraints
 All input numbers will be non-negative integers
 Input numbers will not exceed 1000
-Focus on calculating complete servings only
+Focus on calculating complete servings only */
