@@ -59,3 +59,27 @@
     </start>
     <status>Active</status>
 </Flow>
+
+/* With the Winter Wonderland Festival approaching, the villagers are reminded of the chaos from last year's festival. Thankfully, in the last Congressional session, the lawmakers at the House of Gingerbread approved funding for a Festival Management CRM to help with vendor management.
+
+
+The original consulting firm they hired blew the budget and ended up not building any of the automation. Given your expert record-triggered automation skills, this week you'll be asked to help build out the automation needed for their CRM.
+
+
+For these challenges, you'll be building Record-Triggered Flows, Apex Triggers, Validation Rules, or other automations in your own org. You'll still return to Camp Apex to run the pre-built tests & earn your points.
+
+
+The 3 sObjects you'll be working with are: Vendor__c, Permit__c, and Booth__c. Deploy the metadata and explore in your own org for more details. The "Winter Wonderland" app should be available in your App Explorer once you assign yourself the "Winter Wonderland Admin" permission set.
+
+
+Day 8
+
+When Ranger Bubblegum receives new vendor applications, they come in the form of a Vendor__c sObject record. All new vendors must undergo an initial review before they can apply for a permit. Ranger Bubblegum wants you to implement the automation for this. To do so, when a Vendor__c is created:
+
+
+Mark Status__c as Pending (even if they try to sprinkle in a different status)
+Set Review_By_Date__c to 7 days from the creation date
+
+
+
+Implement this solution with the automation tool of your choice in your connected org. Ranger Bubblegum is counting on you this week! Good Luck! */
