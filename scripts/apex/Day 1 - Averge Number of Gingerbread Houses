@@ -1,0 +1,59 @@
+public class CampApexSolution {
+    public Decimal calculateAverageHousesPerStreet(List<Integer> streetHouseCounts){
+        Decimal sum=0;
+        Decimal avg;
+        if(streetHouseCounts == null)
+        return 0;
+        else if ( streetHouseCounts.isEmpty())
+        return 0;
+        else
+       { Decimal size = streetHouseCounts.size();
+            for(Integer num : streetHouseCounts)
+            {
+                sum= sum + num;
+            }
+            avg= sum/ size;
+            return avg;
+        }
+        
+    }
+}
+/*Welcome to the Gingerbread Village, your first task awaits! We'll give you something urgent but straightforward to start.
+
+
+As the newly appointed Village Counter, you have an important task: finding the average number of gingerbread houses in the village.
+
+
+Mayor Snickerdoodle approaches you with a clipboard. "Hello there! We need your help to count our gingerbread houses. Each street in our village has a different number of houses, and we need to know the average number of houses per street."
+
+
+The Mayor hands you the clipboard with a list of numbers. Each number represents the count of gingerbread houses on a street. For example:
+
+
+[ 5, 10, 3, 7, 8]
+
+In this small example, there are 5 streets:
+
+ - The first street has 5 houses
+ - The second street has 10 houses
+ - The third street has 3 houses
+ - The fourth street has 7 houses
+ - The fifth street has 8 houses
+
+To find the average number of houses in per street, you simply need to add up all these numbers:
+
+5 + 10 + 3 + 7 + 8 = 33
+
+
+and divide by the total number of streets, in this case 5. The average number of houses per street is:
+
+
+33 / 5 = 6.6
+
+
+Make sense? Oh! One thing. If we hand you an invalid list, just return 0. A list is invalid when it's blank or null.
+
+
+Let's put your skills to the test!
+
+*/
