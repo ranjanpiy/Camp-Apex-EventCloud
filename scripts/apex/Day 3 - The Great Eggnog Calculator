@@ -14,3 +14,48 @@ public class CampApexSolution {
         
     }
 }
+
+Master Baker Maple needs help with the eggnog station. The festival organizers need to know exactly how many servings of eggnog they can make with their current ingredients.
+
+According to the ancient recipe book, each serving of eggnog requires:
+
+2 cups of milk
+1 cup of heavy cream
+3 eggs
+1/4 cup of sugar
+A pinch of nutmeg (we don't need to calculate this)
+
+
+
+Challenge
+Create an Apex method that calculates the maximum number of complete eggnog servings that can be made given the available ingredients. You must use ALL ingredients in the same proportion - no partial servings allowed!
+
+
+
+
+Example 1
+Input: milk = 4, cream = 2, eggs = 6, sugar = 1
+Output: 2
+Explanation: We can make exactly 2 servings because:
+
+4 cups milk ÷ 2 cups per serving = 2 servings
+2 cups cream ÷ 1 cup per serving = 2 servings
+6 eggs ÷ 3 eggs per serving = 2 servings
+1 cup sugar ÷ 0.25 cups per serving = 4 servings (but limited by other ingredients)
+
+Example 2
+Input: milk = 2, cream = 1, eggs = 2, sugar = 1
+Output: 0
+Explanation: We need at least 3 eggs per serving, so no complete servings can be made.
+
+
+Example 3
+Input: milk = 10, cream = 5, eggs = 15, sugar = 2
+Output: 5
+Explanation: We can make 5 complete servings with these ingredients.
+
+
+Constraints
+All input numbers will be non-negative integers
+Input numbers will not exceed 1000
+Focus on calculating complete servings only
