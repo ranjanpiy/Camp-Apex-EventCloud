@@ -1,0 +1,16 @@
+public class CampApexSolution {
+    public Integer calculateEggnogServings(Integer milk, Integer cream, Integer eggs, Integer sugar) {
+        if( (milk < 4) || (cream < 1) || (eggs < 3) || (sugar < 1)) 
+            return 0;
+        else
+        { List<Integer> servingsCal = new List<Integer> {milk/2,eggs/3,sugar*4,cream };
+            /*Integer milkServings = milk/2;servingsCal.add(milkServings);
+            Integer eggsServings = eggs/3;servingsCal.add(eggsServings);
+            Integer sugarServings = sugar*4;servingsCal.add(sugarServings);
+            servingsCal.add(cream);*/
+            servingsCal.sort();
+            return servingsCal.get(0);
+         }
+        
+    }
+}
