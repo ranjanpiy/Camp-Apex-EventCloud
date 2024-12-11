@@ -1,0 +1,266 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <decisions>
+        <name>Decision_1</name>
+        <label>Safety Rating Assignment</label>
+        <locationX>446</locationX>
+        <locationY>323</locationY>
+        <defaultConnector>
+            <targetReference>Update_Good_Standing_Daily</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Good Standing</defaultConnectorLabel>
+        <rules>
+            <name>Critical_issues</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Risk_Level__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>High</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Critical_issues_Every_2_hours</targetReference>
+            </connector>
+            <label>Critical issues</label>
+        </rules>
+        <rules>
+            <name>Major_concerns</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Space_Required__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Extra-Large</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Equipment_Requirements__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Specialty (Custom Requirements)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Major_concerns_Every_4_hours</targetReference>
+            </connector>
+            <label>Major concerns</label>
+        </rules>
+        <rules>
+            <name>Minor_issues</name>
+            <conditionLogic>(1 OR 2) AND 3</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Booth_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Food</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Booth_Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sweets</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Equipment_Requirements__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Premium (Enhanced Power/Water)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Update_Minor_issues_Every_6_hours</targetReference>
+            </connector>
+            <label>Minor issues</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Day 11 - Saftey Rating &amp; Inspections {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Day 11 - Saftey Rating &amp; Inspections</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordUpdates>
+        <name>Update_Critical_issues_Every_2_hours</name>
+        <label>Update Critical issues &amp; Every 2 hours</label>
+        <locationX>50</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Inspection_Frequency__c</field>
+            <value>
+                <stringValue>Every 2 hours</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Safety_Rating__c</field>
+            <value>
+                <stringValue>1 = Critical issues (needs immediate attention)</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Booth__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Good_Standing_Daily</name>
+        <label>Update Good Standing &amp; Daily</label>
+        <locationX>842</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Inspection_Frequency__c</field>
+            <value>
+                <stringValue>Daily</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Safety_Rating__c</field>
+            <value>
+                <stringValue>4 = Good standing</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Booth__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Major_concerns_Every_4_hours</name>
+        <label>Update  Major concerns  &amp; Every 4  hours</label>
+        <locationX>314</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Inspection_Frequency__c</field>
+            <value>
+                <stringValue>Every 4 hours</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Safety_Rating__c</field>
+            <value>
+                <stringValue>2 = Major concerns</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Booth__c</object>
+    </recordUpdates>
+    <recordUpdates>
+        <name>Update_Minor_issues_Every_6_hours</name>
+        <label>Update Minor issues &amp; Every 6 hours</label>
+        <locationX>578</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Name</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Inspection_Frequency__c</field>
+            <value>
+                <stringValue>Every 6 hours</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Safety_Rating__c</field>
+            <value>
+                <stringValue>3 = Minor issues</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Booth__c</object>
+    </recordUpdates>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Decision_1</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Status__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>Approved</stringValue>
+            </value>
+        </filters>
+        <object>Permit__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
+
+/*"Oh sugarplums!" Ranger Butterscotch exclaims, looking at the growing pile of Safety Rating forms on her desk.
+
+"We need to make sure all these booths are safe for the festival, but checking each one manually is taking longer than a chocolate bar melting in the sun! Could you help me?"
+
+Ranger Butterscotch explains that you'll need to automatically assign Safety Ratings & Inspection Frequency in the CRM to booths based on various risk factors when a permit is approved.
+
+
+When Permit__c's Status__c changes to Approved, on creation or update - the associated Booth__c's Safety_Rating__c and Inspection_Frequency__c should be set.
+
+
+Safety Rating Assignment Rules
+
+When Permit__c.Risk_Level__c is set to "High"
+Set Booth__c.Safety_Rating__c to "1 = Critical issues (needs immediate attention)"
+When both of these conditions are met:
+Permit__c.Equipment_Requirements__c is "Specialty (Custom Requirements)"
+Permit__c.Space_Required__c is "Extra-Large"
+Then set Booth__c.Safety_Rating__c to "2 = Major concerns"
+When both of these conditions are met:
+Permit__c.Booth_Type__c is either "'Food' or 'Sweets"
+Permit__c.Equipment_Requirements__c is "Premium (Enhanced Power/Water)"
+Then set Booth__c.Safety_Rating__c to "3 = Minor issues"
+When none of the above conditions are met
+Set Booth__c.Safety_Rating__c to "4 = Good Standing"
+
+Inspection Frequency Rules
+When Permit__c.Safety_Rating__c is "1 = Critical issues (needs immediate attention)"
+Set Booth__c.Permit__c.Inspection_Frequency__c to 'Every 2 hours'
+When Permit__c.Safety_Rating__c is "2 = Major concerns"
+Set Booth__c.Permit__c.Inspection_Frequency__c to 'Every 4 hours'
+When Permit__c.Safety_Rating__c is "3 = Minor issues"
+Set Booth__c.Inspection_Frequency__c to "Every 6 hours"
+When Permit__c.Safety_Rating__c is "4 = Good Standing"
+Set Booth__c.Inspection_Frequency__c to "Daily"
+*/
