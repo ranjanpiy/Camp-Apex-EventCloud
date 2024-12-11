@@ -1,0 +1,43 @@
+public class CampApexSolution {
+    String checkFrostingFallsTemp(Integer temp) {
+        String result;
+      if( math.mod(temp,2)==0)  
+      {
+        result ='Safe - Falls Flowing!';
+      }
+      else
+      result='Warning - Falls May Freeze!';
+      return result;
+    }
+} 
+
+/*Woohoo! You made it through the week!
+
+
+Frosting Falls has been experiencing unusual weather patterns lately. The village meteorologist needs your help to analyze temperature readings to ensure the falls don't freeze over. They've noticed that when the temperature reading is even, the falls flow smoothly, but odd readings might indicate potential freezing!
+
+
+Implement the checkFrostingFallsTemp method that takes an integer parameter representing the current temperature reading and returns a string indicating if the falls are at risk of freezing.
+
+
+Output
+Return 'Safe - Falls Flowing!' if the temperature reading is even
+Return 'Warning - Falls May Freeze!' if the temperature reading is odd
+
+Constraints
+Temperature range: -100 ≤ temperature ≤ 100
+Examples
+Example 1:
+
+Input: temperature = 24 Output: "Safe - Falls Flowing!" Explanation: 24 is an even number, so the falls are safe.
+
+
+Example 2:
+
+Input: temperature = -7 Output: "Warning - Falls May Freeze!" Explanation: -7 is an odd number, indicating potential freezing conditions.
+
+
+Example 3:
+
+Input: temperature = 0 Output: "Safe - Falls Flowing!" Explanation: 0 is an even number, so the falls are flowing smoothly.
+*/
