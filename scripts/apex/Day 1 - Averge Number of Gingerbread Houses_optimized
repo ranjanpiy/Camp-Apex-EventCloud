@@ -1,0 +1,24 @@
+public class CampApexSolution {
+    public Decimal calculateAverageHousesPerStreet(List<Integer> streetHouseCounts){
+        Decimal sum=0;
+        Decimal avg;
+        //if(streetHouseCounts == null)
+        //return 0;
+        //else if ( streetHouseCounts.isEmpty())
+        //return 0;
+        //else
+        
+			if(streetHouseCounts != null && !streetHouseCounts.isEmpty()){ //Check for null first
+                Decimal size = streetHouseCounts.size();
+            for(Integer num : streetHouseCounts)
+            {
+                sum= sum + num;
+            }
+            avg= sum/ size;
+            return avg;
+			}
+            else
+            return 0;
+
+}
+}
