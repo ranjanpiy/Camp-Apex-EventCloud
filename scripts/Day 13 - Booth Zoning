@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <customErrors>
+        <name>Error_Message</name>
+        <label>Error Message</label>
+        <locationX>592</locationX>
+        <locationY>749</locationY>
+        <customErrorMessages>
+            <errorMessage>The Booth may not be placed in this location.</errorMessage>
+            <isFieldError>false</isFieldError>
+        </customErrorMessages>
+    </customErrors>
+    <decisions>
+        <name>Location_Check_for_Baker</name>
+        <label>Location Check for Baker</label>
+        <locationX>50</locationX>
+        <locationY>443</locationY>
+        <defaultConnector>
+            <targetReference>Error_Message</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Throw error for Baker</defaultConnectorLabel>
+        <rules>
+            <name>Baker_Correct_location</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Location__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Main Square</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Location__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Treat Lane</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Baker Correct location</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Location_Check_for_Candy_Maker</name>
+        <label>Location Check for Candy Maker</label>
+        <locationX>553</locationX>
+        <locationY>475</locationY>
+        <defaultConnector>
+            <targetReference>Error_Message</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Throw error for Candy maker</defaultConnectorLabel>
+        <rules>
+            <name>Candy_Maker_Correct_location</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Location__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Sweet Corner</stringValue>
+                </rightValue>
+            </conditions>
+            <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+            <label>Candy Maker Correct location</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Location_Check_for_Game_Master</name>
+        <label>Location Check for Game Master</label>
+        <locationX>835</locationX>
+        <locationY>747</locationY>
+        <defaultConnector>
+            <targetReference>Error_Message</targetReference>
+        </defaultConnector>
+        <defaultConnectorLabel>Throw error for Game Master</defaultConnectorLabel>
+        <rules>
+            <name>Game_Master_Correct_location</name>
+            <conditionLogic>or</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Location__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Treat Lane</stringValue>
+                </rightValue>
+            </conditions>
+            <conditions>
+                <leftValueReference>$Record.Location__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Main Square</stringValue>
+                </rightValue>
+            </conditions>
+            <label>Game Master Correct location</label>
+        </rules>
+    </decisions>
+    <decisions>
+        <name>Vendor_Type</name>
+        <label>Vendor Type</label>
+        <locationX>776</locationX>
+        <locationY>394</locationY>
+        <defaultConnectorLabel>No Action</defaultConnectorLabel>
+        <rules>
+            <name>Baker</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Vendor__r.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Baker</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Location_Check_for_Baker</targetReference>
+            </connector>
+            <label>Baker</label>
+        </rules>
+        <rules>
+            <name>Candy_Maker</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Vendor__r.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Candy Maker</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Location_Check_for_Candy_Maker</targetReference>
+            </connector>
+            <label>Candy Maker</label>
+        </rules>
+        <rules>
+            <name>Game_Master</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Vendor__r.Type__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Game Master</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Location_Check_for_Game_Master</targetReference>
+            </connector>
+            <label>Game Master</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <interviewLabel>Day 13 - Booth Zoning {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Day 13 - Booth Zoning</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>FREE_FORM_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <start>
+        <locationX>650</locationX>
+        <locationY>48</locationY>
+        <connector>
+            <targetReference>Vendor_Type</targetReference>
+        </connector>
+        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Vendor__c</field>
+            <operator>IsNull</operator>
+            <value>
+                <booleanValue>false</booleanValue>
+            </value>
+        </filters>
+        <object>Booth__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
+// This took many versions because while saving the picklist value automatically isntead of space ( ) underscore (_) was added in picklist names.
+
+/*You can sense the relief in Permit Officer Frost when he exclaims: "There's just one last requirement missing in our Winter Wonderland CRM!"
+
+(The secret Saman elf behind the scenes overhears this and is also relieved because trigger tests are so difficult to write!)
+
+He explains how last year so many visitors complained about the lack of balance across the festival. Main Square was overcrowded with booths and Treat Lane was deserted!
+
+
+This year Officer Frost is implementing some strict zoning requirements to maintain the perfect balance of sweetness throughout the festival. He needs your help to set zoning requirements for the booths to ensure the data integrity of the festival's CRM. A Booth's vendor should determine the location of the Booth.
+
+Here's what he shares with you:
+
+Booths belonging to Vendors whose Type__c is "Baker" may only have booths in Location__c "Main Square" or "Treat Lane"
+
+Booths belonging to Vendors whose Type__c is "Candy Maker" should only have booths in Location__c "Sweet Corner"
+
+Booths belonging to Vendors whose Type__c is "Game Master" should only have booths in Location__c "Treat Lane" or "Main Square"
+
+If any of the rules are violated, the system should prevent the Booth record from being saved and throw the following error: The Booth may not be placed in this location.
+
+He reminds you that these rules apply when Booths are either created or updated & the Vendor__c lookup is populated.
+*/
