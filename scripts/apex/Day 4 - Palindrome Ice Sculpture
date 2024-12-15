@@ -1,0 +1,41 @@
+/*Do not change the name of the class or the method signature.*/
+
+public class CampApexSolution {
+  public Boolean isPalindrome(String input) {
+    List<Integer> chars = input.getChars();
+    List<Integer> chars2 = new List<Integer>();
+    
+    for ( Integer i : chars)
+    {
+      if ( ((i >= 65 ) && (i <= 90)) || ((i >= 97) && (i <=122)))
+        chars2.add(i);
+    }
+    String finalStr1 = String.fromCharArray(chars2);
+    String finalStr2 = finalStr1.reverse();
+    if(finalStr1 == finalStr2)
+    return true;
+    else 
+    return false;
+  }
+
+/* Preparations for the festival in Gingerbread Village are in full swing, and excitement fills the frosty air as villagers prepare for the much-loved Ice Sculpture Contest. This year, to add a whimsical twist, the event’s coordinator, Hannah Frostwhistle, has decided that each sculpture’s entry name must be a palindrome—a word or phrase that reads the same forward and backward.
+
+
+The participants have submitted their names, but Hannah needs help verifying that each one truly is a palindrome before they can be officially entered. Your task is to review each entry name, check for true symmetry, and confirm it as a palindrome so Hannah can complete the registration process. Let’s ensure the contest entries meet the mark for this enchanting winter festival challenge!
+
+
+Implement the method, isPalindrome that takes a string as input and returns a boolean if the input string is a palindrome. Ignore any spaces and puncuation in the input string. The input string will never be null.
+
+
+Example 1
+Input: 'Yo, Banana Boy!'
+Output: true
+
+Example 2
+Input: 'Starburst rubs rats.'
+Output: false
+
+Example 3
+Input: 'Eva, can I see bees in a cave?'
+Output: true
+*/
