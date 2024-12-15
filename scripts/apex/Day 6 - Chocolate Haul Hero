@@ -1,0 +1,57 @@
+/*Do not change the name of the class or the method signature.*/
+
+public class CampApexSolution {
+    Integer calculateExtraCarts(List<Integer> chipsPerBelt, Integer cartCapacity, Integer currentCarts) {
+        Integer sum =0, cap=0, extraCart=0;
+        for( Integer chips : chipsPerBelt)
+            sum = sum + chips;
+        cap = sum/cartCapacity;
+        if(math.mod(sum,cartCapacity)!=0)
+            cap = cap +1;
+
+        if(currentCarts< cap)
+            extraCart = cap - currentCarts;
+        else
+            extraCart =0;
+        
+        return extraCart;
+    }
+}
+
+/*“The conveyor belt issue in the Chocolate Chip Mines is getting out of hand,” Mayor Snickerdoodle sighs. “Quick, find Miner Mocha and come up with a merry little plan!”
+
+
+You wander into the Chocolate Chip Mines, ready to take on the task. Miner Mocha rushes over as soon as you arrive. “Yikes, we need to get this sorted out quickly! The engineers can’t work on the conveyor belts with piles of chocolate in the way. Allow me to show you the Cocoa Core, the area of the mine that took the hardest hit.”
+
+
+As you approach the Cocoa Core, you can see huge piles of chocolate chips on the conveyor belts. You also notice 9 mine carts on the side. “These are our Cocoa Haulers,” Miner Mocha explained. “They can be used to move the chocolate chips out of the mines. Not sure if 9 Cocoa Haulers will get the job done though, so let me know if I need to find more carts in other areas of the mines.”
+
+
+You notice that there are 5 conveyor belts in this section of the mine, so you begin collecting the number of chocolate chips per belt. Next, you survey the Cocoa Haulers and determine that each cart has a capacity limit of 15,000 chocolate chips.
+
+
+Now, you just need to determine the number of extra carts needed to move the chocolate chips out of the mines.
+
+
+Example:
+
+Inputs
+
+Chips Per Belt (List): [25846, 62556, 44714, 36935, 50673]
+Capacity Per Cart (Integer): 15,000
+Current Number of Carts (Integer): 9
+
+Outputs
+
+Number of Extra Carts (Integer): 6
+
+Explanation:
+
+Total chips: 25846 + 62556 + 44714 + 36935 + 50673 = 220,724 chips
+Total capacity needed: 220,724 ÷ 15,000 = 14.71 carts (round up to 15 carts)
+Extra carts needed: 15 - 9 = 6 additional carts
+
+
+You also need to ensure that your solution can handle any combination of inputs so tht you can solve this same issue in other areas of the mine.
+
+*/
