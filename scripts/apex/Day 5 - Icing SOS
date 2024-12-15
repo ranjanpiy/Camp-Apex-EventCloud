@@ -1,0 +1,78 @@
+/*Do not change the name of the class or the method signature.*/
+
+public class CampApexSolution {
+  public Integer calculateExcess(Map<String, Integer> order) {
+    Integer cupcakeIcing = order.get('Cupcakes')* 4;
+    Integer layeredCakeIcing = order.get('3-Layered Cake')* 5;
+    Integer frostedSugarCookiesIcing = order.get('Frosted Sugar Cookies')* 2;
+    Integer frostedBrowniesIcing = order.get('Frosted Brownies');
+
+    Integer extraIcingNeed = (cupcakeIcing + layeredCakeIcing + frostedBrowniesIcing + frostedSugarCookiesIcing) - 50;
+    if( extraIcingNeed > 0 )
+    return extraIcingNeed;
+    else
+    return 0;
+  }
+}
+
+/*Bakeries across the Village have been panicking due to the shortage of icing at Frosting Falls.
+
+
+Mayor Snickerdoodle runs up to you and cries, "The Winter Wonderland Festival must be filled with delicious desserts! Please help our bakeries ration out their limited amount of icing."
+
+
+Challenge Requirements
+After meeting with Mayor Snickerdoodle, you learn that each bakery:
+
+Has been given an allowance of 50 cups of icing from Frosting Falls
+Has a specific amount of icing that should be used for each batch of desserts
+
+Each bakery participating in the Winter Wonderland Festival has sent over their planned list of desserts. You need an easy way to determine if each bakery will exceed their icing limit or not.
+
+
+In cases where a bakery exceeds the icing limit, provide the excess number of cups so that the bakery can make adjustments before the festival. For example, if a bakery's planned dessert list requires 60 cups of icing, we need to alert the bakery that they are 10 cups over the icing limit.
+
+
+Icing Requirements Per Batch
+Dessert	Cups of Icing Needed
+Cupcakes	4 Cups
+3-Layered Cake	5 Cups
+Frosted Sugar Cookies	2 Cups
+Frosted Brownies	1 Cup
+
+Input Format
+The method takes a Map<String, Integer> parameter called order where:
+
+
+The key is the dessert type (Cupcakes, 3-Layered Cake, Frosted Sugar Cookies, or Frosted Brownies)
+The value is the number of batches ordered
+
+Example:
+
+Input:
+
+order = {
+    'Cupcakes' => 6,
+    '3-Layered Cake' => 4,
+    'Frosted Sugar Cookies' => 7,
+    'Frosted Brownies' => 2
+}
+
+Output: 10
+
+
+Explanation:
+
+Cupcakes: 6 batches × 4 cups = 24 cups
+3-Layered Cake: 4 batches × 5 cups = 20 cups
+Frosted Sugar Cookies: 7 batches × 2 cups = 14 cups
+Frosted Brownies: 2 batches × 1 cup = 2 cups
+Total icing needed: 60 cups
+Since this exceeds the 50-cup limit by 10 cups, the method returns 10
+
+Create a solution that:
+Calculates total icing needed for the bakery
+Determines if they exceed the 50-cup limit
+Returns the excess amount if they go over the limit. Or, return 0 if they are under or at the limit.
+
+*/
