@@ -2,16 +2,16 @@
 <Flow xmlns="http://soap.sforce.com/2006/04/metadata">
     <apiVersion>62.0</apiVersion>
     <decisions>
-        <name>Decision_1</name>
-        <label>Safety Rating Assignment</label>
+        <name>Update_Safety_rating_and_frequency</name>
+        <label>Update Safety rating and frequency</label>
         <locationX>446</locationX>
         <locationY>323</locationY>
         <defaultConnector>
-            <targetReference>Update_Good_Standing_Daily</targetReference>
+            <targetReference>Update_Booth_safety_rating_to_4</targetReference>
         </defaultConnector>
         <defaultConnectorLabel>Good Standing</defaultConnectorLabel>
         <rules>
-            <name>Critical_issues</name>
+            <name>High_Risk</name>
             <conditionLogic>and</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Risk_Level__c</leftValueReference>
@@ -21,20 +21,13 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Critical_issues_Every_2_hours</targetReference>
+                <targetReference>Update_Booth_safety_rating</targetReference>
             </connector>
-            <label>Critical issues</label>
+            <label>High Risk</label>
         </rules>
         <rules>
-            <name>Major_concerns</name>
+            <name>Major_Concern</name>
             <conditionLogic>and</conditionLogic>
-            <conditions>
-                <leftValueReference>$Record.Space_Required__c</leftValueReference>
-                <operator>EqualTo</operator>
-                <rightValue>
-                    <stringValue>Extra-Large</stringValue>
-                </rightValue>
-            </conditions>
             <conditions>
                 <leftValueReference>$Record.Equipment_Requirements__c</leftValueReference>
                 <operator>EqualTo</operator>
@@ -42,13 +35,20 @@
                     <stringValue>Specialty (Custom Requirements)</stringValue>
                 </rightValue>
             </conditions>
+            <conditions>
+                <leftValueReference>$Record.Space_Required__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>Extra-Large</stringValue>
+                </rightValue>
+            </conditions>
             <connector>
-                <targetReference>Update_Major_concerns_Every_4_hours</targetReference>
+                <targetReference>Update_Booth_safety_rating_to_2</targetReference>
             </connector>
-            <label>Major concerns</label>
+            <label>Major Concern</label>
         </rules>
         <rules>
-            <name>Minor_issues</name>
+            <name>Minor_Issue</name>
             <conditionLogic>(1 OR 2) AND 3</conditionLogic>
             <conditions>
                 <leftValueReference>$Record.Booth_Type__c</leftValueReference>
@@ -72,14 +72,14 @@
                 </rightValue>
             </conditions>
             <connector>
-                <targetReference>Update_Minor_issues_Every_6_hours</targetReference>
+                <targetReference>Update_Booth_safety_rating_to_3</targetReference>
             </connector>
-            <label>Minor issues</label>
+            <label>Minor Issue</label>
         </rules>
     </decisions>
     <environments>Default</environments>
-    <interviewLabel>Day 11 - Saftey Rating &amp; Inspections {!$Flow.CurrentDateTime}</interviewLabel>
-    <label>Day 11 - Saftey Rating &amp; Inspections</label>
+    <interviewLabel>Day 11 - Saftey Rating &amp; Inspections V3 {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Day 11 - Saftey Rating &amp; Inspections V3</label>
     <processMetadataValues>
         <name>BuilderType</name>
         <value>
@@ -100,16 +100,16 @@
     </processMetadataValues>
     <processType>AutoLaunchedFlow</processType>
     <recordUpdates>
-        <name>Update_Critical_issues_Every_2_hours</name>
-        <label>Update Critical issues &amp; Every 2 hours</label>
+        <name>Update_Booth_safety_rating</name>
+        <label>Update Booth safety rating</label>
         <locationX>50</locationX>
         <locationY>431</locationY>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Name</field>
+            <field>Vendor__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+                <elementReference>$Record.Vendor__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -127,43 +127,16 @@
         <object>Booth__c</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Good_Standing_Daily</name>
-        <label>Update Good Standing &amp; Daily</label>
-        <locationX>842</locationX>
-        <locationY>431</locationY>
-        <filterLogic>and</filterLogic>
-        <filters>
-            <field>Name</field>
-            <operator>EqualTo</operator>
-            <value>
-                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
-            </value>
-        </filters>
-        <inputAssignments>
-            <field>Inspection_Frequency__c</field>
-            <value>
-                <stringValue>Daily</stringValue>
-            </value>
-        </inputAssignments>
-        <inputAssignments>
-            <field>Safety_Rating__c</field>
-            <value>
-                <stringValue>4 = Good standing</stringValue>
-            </value>
-        </inputAssignments>
-        <object>Booth__c</object>
-    </recordUpdates>
-    <recordUpdates>
-        <name>Update_Major_concerns_Every_4_hours</name>
-        <label>Update  Major concerns  &amp; Every 4  hours</label>
+        <name>Update_Booth_safety_rating_to_2</name>
+        <label>Update Booth safety rating to 2</label>
         <locationX>314</locationX>
         <locationY>431</locationY>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Name</field>
+            <field>Vendor__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+                <elementReference>$Record.Vendor__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -181,16 +154,16 @@
         <object>Booth__c</object>
     </recordUpdates>
     <recordUpdates>
-        <name>Update_Minor_issues_Every_6_hours</name>
-        <label>Update Minor issues &amp; Every 6 hours</label>
+        <name>Update_Booth_safety_rating_to_3</name>
+        <label>Update Booth safety rating to 3</label>
         <locationX>578</locationX>
         <locationY>431</locationY>
         <filterLogic>and</filterLogic>
         <filters>
-            <field>Name</field>
+            <field>Vendor__c</field>
             <operator>EqualTo</operator>
             <value>
-                <elementReference>$Record.Festival_Booth__r.Name</elementReference>
+                <elementReference>$Record.Vendor__c</elementReference>
             </value>
         </filters>
         <inputAssignments>
@@ -207,13 +180,39 @@
         </inputAssignments>
         <object>Booth__c</object>
     </recordUpdates>
+    <recordUpdates>
+        <name>Update_Booth_safety_rating_to_4</name>
+        <label>Update Booth safety rating to 4</label>
+        <locationX>842</locationX>
+        <locationY>431</locationY>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Vendor__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vendor__c</elementReference>
+            </value>
+        </filters>
+        <inputAssignments>
+            <field>Inspection_Frequency__c</field>
+            <value>
+                <stringValue>Daily</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Safety_Rating__c</field>
+            <value>
+                <stringValue>4 = Good standing</stringValue>
+            </value>
+        </inputAssignments>
+        <object>Booth__c</object>
+    </recordUpdates>
     <start>
         <locationX>320</locationX>
         <locationY>0</locationY>
         <connector>
-            <targetReference>Decision_1</targetReference>
+            <targetReference>Update_Safety_rating_and_frequency</targetReference>
         </connector>
-        <doesRequireRecordChangedToMeetCriteria>true</doesRequireRecordChangedToMeetCriteria>
         <filterLogic>and</filterLogic>
         <filters>
             <field>Status__c</field>
