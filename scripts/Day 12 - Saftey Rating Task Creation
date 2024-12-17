@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Flow xmlns="http://soap.sforce.com/2006/04/metadata">
+    <apiVersion>62.0</apiVersion>
+    <decisions>
+        <name>Saftey_rating_value</name>
+        <label>Saftey rating value</label>
+        <locationX>446</locationX>
+        <locationY>431</locationY>
+        <defaultConnectorLabel>Default Outcome</defaultConnectorLabel>
+        <rules>
+            <name>Critical_issue</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Safety_Rating__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>1 = Critical issues (needs immediate attention)</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_for_Critical_Issue</targetReference>
+            </connector>
+            <label>Critical issue</label>
+        </rules>
+        <rules>
+            <name>Major_concerns</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Safety_Rating__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>2 = Major concerns</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_for_Major_concerns</targetReference>
+            </connector>
+            <label>Major concerns</label>
+        </rules>
+        <rules>
+            <name>Minor_Issues</name>
+            <conditionLogic>and</conditionLogic>
+            <conditions>
+                <leftValueReference>$Record.Safety_Rating__c</leftValueReference>
+                <operator>EqualTo</operator>
+                <rightValue>
+                    <stringValue>3 = Minor issues</stringValue>
+                </rightValue>
+            </conditions>
+            <connector>
+                <targetReference>Create_Task_for_Minor_issues</targetReference>
+            </connector>
+            <label>Minor Issues</label>
+        </rules>
+    </decisions>
+    <environments>Default</environments>
+    <formulas>
+        <name>CriticalDuedate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} +1</expression>
+    </formulas>
+    <formulas>
+        <name>MajorDueDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} +2</expression>
+    </formulas>
+    <formulas>
+        <name>MinorDueDate</name>
+        <dataType>Date</dataType>
+        <expression>{!$Flow.CurrentDate} + 3</expression>
+    </formulas>
+    <interviewLabel>Day 12 - Saftey Rating Task Creation {!$Flow.CurrentDateTime}</interviewLabel>
+    <label>Day 12 - Saftey Rating Task Creation V4</label>
+    <processMetadataValues>
+        <name>BuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>CanvasMode</name>
+        <value>
+            <stringValue>AUTO_LAYOUT_CANVAS</stringValue>
+        </value>
+    </processMetadataValues>
+    <processMetadataValues>
+        <name>OriginBuilderType</name>
+        <value>
+            <stringValue>LightningFlowBuilder</stringValue>
+        </value>
+    </processMetadataValues>
+    <processType>AutoLaunchedFlow</processType>
+    <recordCreates>
+        <name>Create_Task_for_Critical_Issue</name>
+        <label>Create Task for Critical Issue</label>
+        <locationX>50</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>CriticalDuedate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Permit.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>In Progress</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>URGENT: Critical Safety Inspection Required</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_for_Major_concerns</name>
+        <label>Create Task for Major concerns</label>
+        <locationX>314</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>MajorDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>Get_Permit.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>High</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>In Progress</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Safety Concerns Need Review</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordCreates>
+        <name>Create_Task_for_Minor_issues</name>
+        <label>Create Task for Minor issues</label>
+        <locationX>578</locationX>
+        <locationY>539</locationY>
+        <inputAssignments>
+            <field>ActivityDate</field>
+            <value>
+                <elementReference>MinorDueDate</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>OwnerId</field>
+            <value>
+                <elementReference>$Record.Vendor__r.OwnerId</elementReference>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Priority</field>
+            <value>
+                <stringValue>Normal</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Status</field>
+            <value>
+                <stringValue>In Progress</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>Subject</field>
+            <value>
+                <stringValue>Safety Review Required</stringValue>
+            </value>
+        </inputAssignments>
+        <inputAssignments>
+            <field>WhatId</field>
+            <value>
+                <elementReference>$Record.Id</elementReference>
+            </value>
+        </inputAssignments>
+        <object>Task</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordCreates>
+    <recordLookups>
+        <name>Get_Permit</name>
+        <label>Get Permit</label>
+        <locationX>446</locationX>
+        <locationY>323</locationY>
+        <assignNullValuesIfNoRecordsFound>false</assignNullValuesIfNoRecordsFound>
+        <connector>
+            <targetReference>Saftey_rating_value</targetReference>
+        </connector>
+        <filterLogic>and</filterLogic>
+        <filters>
+            <field>Vendor__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <elementReference>$Record.Vendor__c</elementReference>
+            </value>
+        </filters>
+        <getFirstRecordOnly>true</getFirstRecordOnly>
+        <object>Permit__c</object>
+        <storeOutputAutomatically>true</storeOutputAutomatically>
+    </recordLookups>
+    <start>
+        <locationX>320</locationX>
+        <locationY>0</locationY>
+        <connector>
+            <targetReference>Get_Permit</targetReference>
+        </connector>
+        <filterLogic>or</filterLogic>
+        <filters>
+            <field>Safety_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>1 = Critical issues (needs immediate attention)</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Safety_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>2 = Major concerns</stringValue>
+            </value>
+        </filters>
+        <filters>
+            <field>Safety_Rating__c</field>
+            <operator>EqualTo</operator>
+            <value>
+                <stringValue>3 = Minor issues</stringValue>
+            </value>
+        </filters>
+        <object>Booth__c</object>
+        <recordTriggerType>CreateAndUpdate</recordTriggerType>
+        <triggerType>RecordAfterSave</triggerType>
+    </start>
+    <status>Active</status>
+</Flow>
+
+/*
+"I need backup!" exclaims Ranger Butterscotch. "Now that we're setting Safety Ratings automatically, we need to track the follow-up inspections. The more critical the rating, the faster we need eyes on those booths!"
+
+
+She adjusts her acorn cap and continues, "Could you enhance our safety system to automatically create these inspection tasks? The more critical the safety concerns, the faster we need eyes on those booths!"
+
+
+When Safety_Rating__c is set on Booth__c, create inspection tasks based on the rating:
+
+
+For '1 = Critical issues (needs immediate attention)'
+Owner: Permit Owner
+Due: Today + 1 day
+Priority: High
+Subject: "URGENT: Critical Safety Inspection Required"
+
+
+
+For '2 = Major concerns'
+Owner: Permit Owner
+Due: Today + 2 days
+Priority: High
+Subject: "Safety Concerns Need Review"
+
+
+
+For '3 = Minor issues'
+Owner: Vendor Owner
+Due: Today + 3 days
+Priority: Normal
+Subject: "Safety Review Required"
+
+
+
+Tasks should be created when Safety_Rating__c is initially set or updated. This challenge is dependnet on Day 10's challenge being implemented. You'll need to enable "Track Activities" in Setup for the Booth sObject.
+*/
