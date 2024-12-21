@@ -1,0 +1,62 @@
+public class CampApexSolution {
+    public List<Permit__c> getPermitsNeedingReview() {
+        // Your SOQL query here
+        List<Permit__c> solution =[SELECT Name,Status__c,Review_Date__c FROM Permit__c
+                                    WHERE (Status__c ='Approved' AND Review_Date__c =null) 
+                                    OR(Review_Date__c < TODAY AND (Status__c =null OR Status__c ='New' OR Status__c ='Under Review'))
+                                    ORDER BY CreatedDate];
+        return solution;
+    }
+}
+
+/*Oh no! Because the automation was turned off - our approvers didn't review and approve the permits in time! Here's what we have seen:
+
+
+Approved permits that are missing their review dates (this could indicate a process was skipped)
+Permits where the review date has already passed but the permit is still in an early stage (marked as new, under review, or has no status set)
+
+Write a query to help the organizers identify these permits so they can ensure proper processing.
+
+
+
+Requirements:
+Complete the getPermitsNeedingReview() method in the CampApexSolution class:
+
+
+public class CampApexSolution {
+    public List<Permit__c> getPermitsNeedingReview() {
+        // Your SOQL query here
+    }
+}
+
+Your query should:
+
+Find permits that match either of these conditions:
+Permits that have been approved but don't have a review date recorded
+Permits with a review date in the past that are either new, under review, or missing a status
+Order the results by when they were created, with the newest first
+Return all fields
+
+
+
+Sample Data
+
+
+
+Permit__c:
+
+Name	Status__c	Review_Date__c	CreatedDate
+P-0001	Approved	NULL	2024-01-15
+P-0002	Under Review	2023-12-31	2024-01-10
+P-0003	Approved	2024-12-31	2024-01-05
+P-0004	NULL	2023-12-01	2024-01-01
+
+Expected Results:
+
+Name	Status__c	Review_Date__c
+P-0001	Approved	NULL
+P-0002	Under Review	2023-12-31
+P-0004	NULL	2023-12-01
+
+Note: The test cases will verify the logic works across different scenarios and that results are properly ordered.
+*/
