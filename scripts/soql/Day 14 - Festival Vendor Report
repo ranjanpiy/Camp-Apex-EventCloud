@@ -1,0 +1,76 @@
+public class CampApexSolution {
+    public List<Vendor__c> getFestivalVendorReport() {
+    // Execute and return SOQL query results
+    /*List<Permit__c> venDetails = [select Status__c,Booth_Type__c,Risk_Level__c,
+    Festival_Booth__r.Status__c,Festival_Booth__r.Location__c,Festival_Booth__r.Daily_Capacity__c,Vendor__r.Name,Vendor__r.Type__c from Permit__c 
+    where Vendor__r.Status__c ='Active'
+    order by Vendor__r.Name ASC];*/
+
+    List<Vendor__c> venDetails =[select Name,Type__c,(SELECT Vendor__c,Status__c, Booth_Type__c, Risk_Level__c  FROM Permits__r),  (SELECT Vendor__c,Status__c, Location__c, Daily_Capacity__c  FROM Festival_Booths__r)  
+    from Vendor__c 
+    where Status__c ='Active'
+    order by Name ASC];
+
+
+    return venDetails;
+  }
+}
+
+/*The committee has received a flurry of sugar-dusted messages! Their booths are in the wrong location!
+
+
+Fisherelf Peppermint has gone rogue. He's turned off all triggers, validation rules, and flows in the Winter Wonderland CRM. He's even approved permits without reading them! All the rules we put into place haven't been firing as vendors put in thier requests.
+
+
+Mayor Snickerdoodle is frantically waving her arms in the arm, as she finds the Ranger to make an arrest. In the meantime, we need your help to query some of our data to see what's wrong. This might take a whole week! You'll have a buddy: Data Sage Syrup will help you figure out what data to analyze.
+
+
+Data Sage Syrup tells you where to start:
+
+
+For each ACTIVE vendor, they need:
+
+Vendor Information:
+
+Vendor Name
+Vendor Type (Baker, Fisherelf, etc.)
+
+Their Permit Details:
+
+Permit Status
+Booth Type
+Risk Level
+
+Their Booth Information:
+
+Operating Status
+Location
+Daily Visitor Capacity
+
+Everything should be organized alphabetically by vendor name.
+
+
+Implement the method to write a SOQL query that fetches Active vendors and their related permit and booth records. Use parent-to-child relationships (Permits__r and Festival_Booths__r) to get all the nested information the committee needs! Here's an example of what the data might look like:
+
+
+Vendors
+Name	Type	Status	Email	Specialty
+Maple Bakery	Baker	Active	maple@test.com	Gingerbread
+River Fishing Co	Fisherelf	Active	river@test.com	Candycane Fish
+Suspended Shop	Baker	Suspended	suspended@test.com	Cookies
+Permits (Related to Active Vendors)
+Vendor	Status	Booth Type	Risk Level	Equipment Requirements	Space Required
+Maple Bakery	Approved	Food	Low	Standard (Basic Booth Setup)	Medium
+River Fishing Co	Approved	Entertainment	Medium	Premium (Enhanced Power/Water)	Large
+Booth Assignments (Related to Active Vendors)
+Vendor	Status	Location	Daily Capacity	Safety Rating	Inspection Frequency
+Maple Bakery	Operating	Main_Square	100	4 = Good standing	Every 4 hours
+River Fishing Co	Operating	Festival Row	50	5 = Excellent/Perfect safety record	Every 6 hours
+
+
+Test Validation Points:
+Only Active vendors (Maple Bakery and River Fishing Co) are returned
+All required fields from each object are present
+Related records (Permits and Booths) are properly linked
+Results are ordered alphabetically by vendor name
+*/
