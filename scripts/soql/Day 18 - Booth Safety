@@ -1,0 +1,55 @@
+public class CampApexSolution {
+    public Map<String, List<Booth__c>> getBoothsBySafetyRating() {
+        // Your SOQL & Apex here
+        Map<String, List<Booth__c>> solMap = new Map<String, List<Booth__c>> ();
+        solMap.put('5 = Excellent/Perfect safety record',[SELECT Name FROM Booth__c WHERE Safety_Rating__c='5 = Excellent/Perfect safety record']);
+        solMap.put('4 = Good standing',[SELECT Name FROM Booth__c WHERE Safety_Rating__c='4 = Good standing']);
+        solMap.put('3 = Minor issues',[SELECT Name FROM Booth__c WHERE Safety_Rating__c='3 = Minor issues']);
+        solMap.put('2 = Major concerns',[SELECT Name FROM Booth__c WHERE Safety_Rating__c='2 = Major concerns']);
+        solMap.put('1 = Critical issues (needs immediate attention)',[SELECT Name FROM Booth__c WHERE Safety_Rating__c='1 = Critical issues (needs immediate attention)']);
+        solMap.put('Unrated',[SELECT Name FROM Booth__c WHERE Safety_Rating__c=null]);
+        
+        return solMap;
+    }
+
+/*The Safety Supervisor needs to quickly find all booths with the same safety rating. While SOQL can group records, we need a data structure that lets us access the complete booth records for each safety rating.
+
+
+Write code that organizes booths by their safety ratings into a Map where each safety rating maps to a List of related booths.
+
+
+Requirements:
+Complete the getBoothsBySafetyRating() method in the CampApexSolution class:
+
+public class CampApexSolution {
+    public Map<String, List<Booth__c>> getBoothsBySafetyRating() {
+        // Your solution here
+    }
+}
+
+Your solution should:
+
+Return a Map with Safety Rating as the key and List<Booth__c> as the value
+Include a group for null Safety Ratings (use 'Unrated' as the key)
+Return all fields for the booth records
+The lists should maintain the original order of the records
+
+Sample Data
+
+Booth__c:
+
+Name	Safety_Rating__c	Status__c
+BOOTH-0001	4 = Good standing	Operating
+BOOTH-0002	4 = Good standing	Setup
+BOOTH-0003	3 = Minor issues	Operating
+BOOTH-0004	NULL	Maintenance
+
+Expected Results Structure:
+
+{
+    '4 = Good standing' => [BOOTH-0001, BOOTH-0002],
+    '3 = Minor issues'  => [BOOTH-0003],
+    'Unrated'          => [BOOTH-0004]
+}
+
+Note: The test cases will verify proper grouping and handling of null values.*/
