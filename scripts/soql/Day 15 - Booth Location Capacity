@@ -1,0 +1,59 @@
+public class CampApexSolution {
+    public List<AggregateResult> getBoothCapacity() {
+        // Your SOQL query here
+        List<AggregateResult> solution =[SELECT Location__c loc, SUM(Daily_Capacity__c)cap
+            FROM Booth__c 
+            GROUP BY Location__c];
+    return solution;
+    }
+}
+
+/*Now they need your help analyzing booth allocations across different locations. Each booth has a daily visitor capacity, and we need to understand the total capacity per location to properly distribute security staff and plan for crowd control.
+
+
+Your task is to write a SOQL query that groups booths by location and calculates the total daily capacity for each location. This will help ensure we're not overloading any particular area of the festival.
+
+
+Available Data
+
+The Booth__c object contains the following fields:
+
+
+Field Name	Type	Description
+Location__c	Picklist	Booth location (Main Square, Treat Lane, Sweet Corner, Festival Row)
+Daily_Capacity__c	Number	Maximum number of visitors per day
+
+Requirements
+
+Complete the getBoothCapacity() method in the CampApexSolution class that returns booth capacity data grouped by location:
+
+
+public class CampApexSolution {
+    public List<AggregateResult> getBoothCapacity() {
+        // Your SOQL query here
+    }
+}
+
+Your query should:
+
+Group booths by their location
+Calculate the sum of daily capacity for each location
+Use the alias 'loc' for Location__c
+Use the alias 'cap' for the SUM of Daily_Capacity__c
+
+Sample Data
+
+Booth Number	Location	Daily Capacity
+BOOTH-0001	Main Square	100
+BOOTH-0002	Main Square	150
+BOOTH-0003	Treat Lane	75
+
+Expected Results:
+
+
+Location (loc)	Total Capacity (cap)
+Main Square	250
+Treat Lane	75
+
+Note: The test cases will handle various scenarios including multiple booths per location, empty capacity values, and different location distributions.
+*/
