@@ -1,0 +1,65 @@
+public class CampApexSolution {
+    public List<AggregateResult> getBoothTypesByLocation() {
+        // Your SOQL query here
+
+        List<AggregateResult> solution =[ SELECT Booth_Type__c type, Festival_Booth__r.Location__c loc, COUNT(Id)cnt  FROM Permit__c
+        WHERE Festival_Booth__r.Status__c ='Operating'
+        GROUP BY Booth_Type__c , Festival_Booth__r.Location__c
+        ORDER BY COUNT(Id) DESC];
+        return solution;
+    }
+}
+
+/*The festival organizers need to analyze booth type distributions across different locations to ensure a balanced variety of offerings. Your task is to help them identify areas that might have too many similar booths clustered together.
+
+
+Write a SOQL query that analyzes the concentration of booth types in each location. This will help ensure diverse offerings throughout the festival grounds.
+
+
+Requirements
+
+Complete the getBoothTypesByLocation() method in the CampApexSolution class that returns booth type concentration data:
+
+
+public class CampApexSolution {
+    public List<AggregateResult> getBoothTypesByLocation() {
+        // Your SOQL query here
+    }
+}
+
+Your query should:
+
+Group by both Location and Booth Type
+Count the number of booths for each combination
+Only include booths with Status = 'Operating'
+Use alias 'loc' for Location__c
+Use alias 'type' for Booth_Type__c
+Use alias 'cnt' for the COUNT
+Order by count descending
+
+Sample Data
+
+Permit__c:
+
+ID	Booth_Type__c	Booth__c (lookup to Booth)
+P1	Food	B1
+P2	Food	B2
+P3	Sweets	B3
+
+Booth__c:
+
+ID	Location__c	Status
+B1	Main Square	Operating
+B2	Main Square	Operating
+B3	Treat Lane	Operating
+
+
+
+Expected Results:
+
+Location (loc)	Booth Type (type)	Count (cnt)
+Main Square	Food	2
+Treat Lane	Sweets	1
+
+Note: The test cases will verify correct grouping, counting, and ordering of results across various scenarios.
+*/
