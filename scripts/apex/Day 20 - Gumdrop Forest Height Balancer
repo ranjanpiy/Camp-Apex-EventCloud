@@ -1,0 +1,71 @@
+public class CampApexSolution {
+    public Boolean canBalanceForest(List<Integer> treeHeights) {
+        Integer inputListSize =treeHeights.size();
+        Integer holdValue;Integer holdValue2 =0;
+        for(Integer i=0;(i<inputListSize-1);i++){
+            if(treeHeights[i]> treeHeights[i+1]){
+                holdValue =treeHeights[i+1];
+                treeHeights[i+1] = treeHeights[i];
+                treeHeights[i] = holdValue;
+                holdValue2 =holdValue2 +1;
+            }
+        }
+       /* Boolean result;
+      for(Integer j=0;j<(inputListSize-1);j++){
+            if(treeHeights[j] < treeHeights[j+1]){
+                result =true;
+            }
+            else{
+                result =false;
+                break;
+            }
+        }*/
+        if(holdValue2 < 2)
+        return true;
+        else
+        return false;
+    }
+}
+/*
+We've done it all. We've written Apex, Triggers, SOQL, Flows, and maybe even Validation Rules. You're in the final stretch before the big festival. A few more Apex challenges and the advent will be over. It's been fun y'all! Good luck this week
+
+
+Today, Ranger Butterscotch needs help organizing the Gumdrop Forest. The forest contains gumdrop trees of different heights, and for the festival, they need to be arranged properly. Given an array of tree heights, help Ranger Butterscotch determine if it's possible to swap exactly two trees to create a non-decreasing sequence (where each tree is equal to or taller than the previous tree).
+
+
+Method Signature:
+
+public Boolean canBalanceForest(List<Integer> treeHeights)
+
+Parameters:
+
+treeHeights: List representing the heights of gumdrop trees in their current order.
+
+
+Returns:
+
+Boolean: true if exactly one swap can create a non-decreasing sequence, false otherwise.
+
+Constraints:
+
+2 ≤ treeHeights.size() ≤ 1000
+1 ≤ treeHeights[i] ≤ 1000
+
+Example 1:
+
+Input: [5, 3, 8, 9, 1]
+Output: false
+Explanation: No single swap can make this sequence non-decreasing
+
+Example 2:
+
+Input: [1, 5, 3, 4, 7]
+Output: true
+Explanation: Swapping positions 1 and 2 (5 and 3) results in [1, 3, 5, 4, 7]
+
+Example 3:
+
+Input: [1, 2, 3, 4, 5]
+Output: true
+Explanation: Already in non-decreasing order
+*/
