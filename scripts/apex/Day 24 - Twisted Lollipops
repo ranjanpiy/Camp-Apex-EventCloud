@@ -1,0 +1,53 @@
+public class CampApexSolution {
+    public Integer calculateFinalLength(List<String> lollipops) {
+        Integer rCount =0; Integer lCount =0;
+
+        for( String s1: lollipops){
+            if( s1 == 'R')
+            rCount =rCount+1;
+            else
+            lCount =lCount+1;
+        }
+
+        return (math.abs(rCount-lCount));
+    }
+} 
+
+/*It's the eve of the festival and Candy Maker Twist is in trouble. Her last batch of spiral lollipops have come out in strange twisted patterns, and she needs to sort them by their actual lengths in time for them to cool before tomorrow!
+
+
+Given a list of lollipop patterns made of 'R' (right twist) and 'L' (left twist), determine each lollipop's true length after all twists are completed:
+
+'R' means the following lollipop segment twists right and disappears
+'L' means the preceding lollipop segment twists left and disappears
+When segments twist together, they both vanish, shortening the lollipop
+
+Calculate the final length after all possible twists are complete.
+
+
+Examples
+Input: ["R", "L"]
+Output: 0
+Explanation: The segments twist together and vanish
+
+Input: ["L", "R", "L", "L"]
+Output: 2
+Explanation: 
+- Second R and first L twist and vanish
+- Two L's remain ("L", "L")
+
+Input: ["R", "R", "L"]
+Output: 1
+Explanation:
+- Last L twists with second R and vanishes
+- First R remains
+
+
+
+Constraints
+Each input list will contain between 1 and 100 twists
+Each element will only contain "R" or "L"
+The input list will never be null
+Process all possible twists from left to right
+
+*/
