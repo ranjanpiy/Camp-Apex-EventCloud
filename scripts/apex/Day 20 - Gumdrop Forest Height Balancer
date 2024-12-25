@@ -11,7 +11,7 @@ public class CampApexSolution {
             }
         }
        /* Boolean result;
-      for(Integer j=0;j<(inputListSize-1);j++){
+      for(Integer j=0;j<(inputListSize-1);j++){  //this in developer console returns true but test case fails
             if(treeHeights[j] < treeHeights[j+1]){
                 result =true;
             }
