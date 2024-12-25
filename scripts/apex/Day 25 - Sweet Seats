@@ -1,0 +1,52 @@
+public class CampApexSolution {
+    public Integer findPairs(List<Integer> preferences, Integer target) {
+        Integer i; Integer j; Integer sum=0; Integer targetSum =target;
+        Integer count =0; Integer preferencesSize =preferences.size();
+        for(i=0; i< preferencesSize;i++){
+            for( j=i+1; j< preferencesSize;j++){
+                sum =preferences[i]+preferences[j];
+                if(sum == targetSum){
+                    ++count;
+                }
+                sum=0;
+            }
+        }
+        return count;
+    }
+} 
+/*The festival is here! We made it, all thanks to you! Just one last thing, we need to figure out everyone's seats for the dinner!
+
+
+Host Honeycomb needs help arranging guests at the grand festival tables! Each guest has a candy preference score that determines where they should sit. However, to make things interesting, guests must be paired at tables that sum to target score.
+
+
+Given a list of guest candy preference scores and a target sum, find how many unique pairs of guests have preferences that add up to exactly the target. Each guest can only be paired once!
+
+
+Examples
+Input: preferences = [3, 7, 4, 6, 4, 3], target = 10
+Output: 4
+Explanation:
+- First 3 pairs with 7 = 10
+- First 4 pairs with 6 = 10
+- Second 4 pairs with 6 = 10
+- Second 3 pairs with 7 = 10
+
+Input: preferences = [1, 2, 3, 4], target = 4
+Output: 1 
+Explanation: Only 1 + 3 = 4
+
+Input: preferences = [2, 2, 2, 2], target = 4
+Output: 2
+Explanation: Two pairs of 2 + 2 = 4
+
+
+
+Constraints
+The preferences list will contain between 2 and 100 scores
+Each preference score will be between 1 and 100
+The target sum will be between 2 and 200
+The input list will never be null
+Each guest can only be paired once
+Order doesn't matter (pairing 1,2 is same as 2,1)
+*/
