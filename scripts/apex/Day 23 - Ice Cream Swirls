@@ -1,0 +1,63 @@
+public class CampApexSolution {
+    public Integer countCandyPairs(List<Integer> candyLevels, Integer targetDiff) {
+     Integer i; Integer candyLevelsSize = candyLevels.size();
+     Integer j; Integer result;Integer count =0;
+    Set<Integer> s1 = new Set<Integer>(candyLevels);
+    List<Integer> candyLevelsUpdate = new List<Integer>();
+     if((s1.size() ==1) && (targetDiff ==0))
+     return 0;
+     else{
+     for(Integer i1: s1){
+        candyLevelsUpdate.add(i1);
+     }
+     for(i=0;i<candyLevelsUpdate.size();i++){
+        for(j=i+1;j<candyLevelsUpdate.size();j++){
+            result = math.abs(candyLevelsUpdate[i] -candyLevelsUpdate[j]);
+            if(result == targetDiff)
+            ++count;
+        }
+     }
+        return count;
+    }
+    }
+}
+/*Confectioner Caramel is preparing for the Gingerbread Village Annual Candy Competition! She has a special recipe that requires combining exactly two different types of candy ingredients. However, each ingredient has a specific sweetness level, and she needs to ensure the combinations meet her criteria.
+
+
+Given a list of integers representing the sweetness level of each candy ingredient and a target difference value, help Confectioner Caramel find how many valid combinations she can make! A valid combination is formed by picking two different ingredients where their sweetness levels differ by exactly the target value.
+
+
+Return the total number of valid combinations possible.
+
+
+Example 1:
+Input: candyLevels = [1, 4, 5, 7], targetDiff = 3
+Output: 2
+Explanation: 
+- Valid combinations are:
+  * 1 and 4 (difference of 3)
+  * 4 and 7 (difference of 3)
+- 5 and 7 don't work (difference of 2)
+- 1 and 7 don't work (difference of 6)
+Example 2:
+Input: candyLevels = [2, 2, 2, 2], targetDiff = 0
+Output: 0
+Explanation:
+- All ingredients have same sweetness
+- No combination has the required difference
+Example 3:
+Input: candyLevels = [1, 3, 5], targetDiff = 2
+Output: 2
+Explanation:
+- Valid combinations are:
+  * 1 and 3 (difference of 2)
+  * 3 and 5 (difference of 2)
+
+
+
+Constraints
+The list will contain between 2 and 100 ingredients
+Each sweetness level will be between 1 and 1000
+The target difference will be between 0 and 1000
+The input list will never be null
+*/
