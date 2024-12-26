@@ -1,0 +1,19 @@
+public class CampApexSolution {
+    public Integer minimumSteamAdjustments(List<Integer> powerLevels) {
+     Integer i;Integer j; Integer num; Integer count=0;
+     for(i=1;i< (powerLevels.size());i=i+2){
+        if((powerLevels[i])>1){ (//this works only when the number is changed to 2 and doesn't work with >=2)
+            num = math.abs(powerLevels[i]-1);
+            powerLevels.set(i,num);
+            count++;
+        }
+     }
+     for(j=0;j< (powerLevels.size()-1);j++){
+        num = math.abs(powerLevels[j] -powerLevels[j+1]);
+        if(num > 1)
+        {count = -1;
+        break;}
+     }
+     return count;
+    }
+    } (edited) 
