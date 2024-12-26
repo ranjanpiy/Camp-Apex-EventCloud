@@ -1,0 +1,57 @@
+/*Do not change the name of the class or the method signature.*/
+
+public class CampApexSolution {
+    public Integer countValidCandyCanes(List<String> candyCaneList) {
+        String checkString ='RW';
+        Integer count =0;
+
+        for( String s1:candyCaneList){
+           // Boolean check =s1.contains(checkString);
+            if(s1.endsWith(checkString))
+            {count++;}
+        }
+        return count;
+    }
+} 
+/*You're asked to head over to the candy cane river & help inspect the quality of the candy canes before they're packaged up and sent to the villages.
+
+
+Wether or not a candy cane is properly made is determined by its stripe pattern. Given a List of candy cane patterns (strings of R = Red and W = White), count how many candy canes are properly made.
+
+
+A candy cane is properly made if:
+
+It starts with 'R'
+It ends with 'W'
+No two same colors are next to each other (no "RR" or "WW")
+
+Input Format
+List of strings, each containing only 'R' and 'W' characters Example: ["RWRW", "RWWW", "RWRWW"]
+
+
+Output Format
+Return the count of properly made candy canes
+
+
+Examples
+Input:
+
+["RWRW", "RWRWW", "RW"]
+
+
+Output:
+
+2
+
+
+Explanation:
+
+"RWRW" is valid (starts R, ends W, alternating)
+"RWRWW" is invalid (has WW)
+"RW" is valid (starts R, ends W, alternating)
+
+Constraints
+1 ≤ List length ≤ 10
+1 ≤ pattern length ≤ 10
+Strings only contain 'R' and 'W'
+*/
