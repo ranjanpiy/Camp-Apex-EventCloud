@@ -1,0 +1,71 @@
+class CampApexSolution {
+    public Boolean isTriplePairSet(List<Integer> cards){
+        Integer cardsmatch=0;
+        Boolean result;
+        cards.sort();
+        for( Integer i=0; i<3;i++){
+            if(cards[i]== cards[i+1])
+            {
+                cardsmatch++;
+            }
+        }
+        if(cardsmatch==2 ||cardsmatch ==1)
+            result =true;
+        else
+            result =false;
+     return result;
+    }
+Triple -pair Set
+You're given four playing cards, each showing a number from 1 to 13. Your task is to determine if it's possible to create a special combination by adding exactly one more card.
+
+
+This combination, known as a "Triple-Pair Set," requires:
+
+
+Three cards showing the same number
+Two cards showing a different but matching number
+
+
+Constraints
+Input will be a List of 4 integers
+Input numbers must be between 1 and 13 (inclusive)
+The order of numbers doesn't matter
+
+
+
+Task
+Write a method that returns:
+
+true if a Triple-Pair Set can be formed by adding one card
+false if it's impossible
+
+Examples
+
+Example 1
+Input: 3 3 3 7
+Output: true
+Explanation: Adding a 7 would create three 3s and two 7s.
+
+
+
+
+Example 2
+Input: 4 5 6 7
+Output: false
+Explanation: No single card addition can create three matching cards and a pair.
+
+
+
+
+Example 3
+Input: 2 2 9 9
+Output: true
+Explanation: Adding either a 2 or a 9 would complete the pattern.
+
+
+
+
+Important Notes
+Five cards showing the same number do not count as a valid Triple-Pair Set
+The order of input numbers doesn't matter
+Each card must be used in forming the combination
