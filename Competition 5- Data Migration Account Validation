@@ -1,0 +1,37 @@
+class CampApexSolution {
+    public List<Account> getValidAccounts(List<Account> accounts){
+       List<Account> accValid = new List<Account>();
+        for(Account acc: accounts){
+           if((acc.Name.contains('DATA_MIGRATION')) AND (acc.BillingStreet !=null)
+            AND (acc.BillingCity !=null) AND (acc.Website.startsWith('https://')))
+                accValid.add(acc);
+            else  if(NOT(acc.Name.contains('DATA_MIGRATION')))
+            accValid.add(acc);
+        }
+        return accValid; 
+    }
+}
+
+Data Migration Account Validation
+
+20
+Your organization has previously performed a data migration project. During the project, some incomplete data was brought into the system. Until that data is restored some workarounds need to be added to the system.
+
+
+You're asked to build a method that can filter out "invalid" account records.
+
+
+Any Account is automatically valid if it does not contain "DATA_MIGRATION" in the name.
+
+
+Any Account with "DATA_MIGRATION" in its name must satisfy the following criteria to be valid:
+
+Must have a billing address (BillingStreet and BillingCity)
+Must have a website URL that starts with "https://"
+
+Task:
+Return a list of all the valid account records.
+
+
+Notes:
+Your solution must handle both single record and bulk operations
