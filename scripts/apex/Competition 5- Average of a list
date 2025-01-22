@@ -1,0 +1,53 @@
+class Solution {
+    public Integer findAverage(List<Integer> nums){
+        Integer size = nums.size();
+        Integer avg=0; Integer sum=0;
+        for(Integer i: nums){
+            sum =sum +i;
+        }
+        avg= sum/size;
+        return avg;
+    }
+}
+
+Average of a List
+
+20
+Let's start of with something easy.
+
+
+You are given an Integer list nums consisting of n elements.
+
+
+Find the average of all the Integers in the list and return this value.
+
+
+Example 1:
+
+Input: nums = [4,8]
+Output: 6
+Explanation: Average is (4 + 8) / 2 = 12 / 2 = 6
+
+
+
+
+Example 2:
+
+Input: nums = [16]
+Output: 16
+Explanation: Average is (16) / 1 = 16
+
+
+
+
+Example 3:
+
+Input: nums = [5, -6, 13]
+Output: 4
+Explanation: Average is (5 + -6 + 13) / 3 = 4
+
+
+Constraints
+n == nums.size()
+1 <= n < 10
+
